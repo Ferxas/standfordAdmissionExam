@@ -1,2 +1,2 @@
 # standfordAdmissionExam
-Solving an admission exam using programming
+Solving an admission exam using JavaScript.
