@@ -1,0 +1,56 @@
+<canvas id="canvas" width="400" height="400"></canvas>
+<script>
+  let positions = ['A', 'B', 'C', 'D', 'E'];
+
+  function moveX() {
+    let last = positions.pop();
+    positions.unshift(last);
+  }
+
+  function moveY() {
+    let temp = positions[4];
+    positions[4] = positions[1];
+    positions[1] = positions[0];
+    positions[0] = temp;
+  }
+
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
+
+  function drawPolygon(ctx, sides, x, y, radius, startAngle, anticlockwise) {
+    let angle = startAngle;
+    const angleStep = (Math.PI * 2) / sides;
+    ctx.beginPath();
+    for (let i = 0; i < sides; i++) {
+      const xPos = x + radius * Math.cos(angle);
+      const yPos = y + radius * Math.sin(angle);
+      ctx.lineTo(xPos, yPos);
+      angle += angleStep;
+    }
+    ctx.closePath();
+    ctx.stroke();
+  }
+
+  function drawPositions(ctx, positions, x, y, radius, startAngle) {
+    const angleStep = (Math.PI * 2) / positions.length;
+    let angle = startAngle;
+    for (const position of positions) {
+      const xPos = x + radius * Math.cos(angle);
+      const yPos = y + radius * Math.sin(angle);
+      ctx.fillText(position, xPos, yPos);
+      angle += angleStep;
+    }
+  }
+
+  moveX();
+  moveX();
+  moveY();
+  moveY();
+  moveX();
+  moveY();
+  moveX();
+  moveY();
+
+  drawPolygon(ctx, 5, 200, 200, 150, (Math.PI * 3) / 2, false);
+  drawPositions(ctx, positions, 200, 200, 100, (Math.PI * 3) / 2);
+</script>
